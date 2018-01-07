@@ -1,0 +1,56 @@
+﻿<Window x:Class="Contacts.ContactWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Contacts"
+        xmlns:viewModels="clr-namespace:Contacts.ViewModels"
+        mc:Ignorable="d"
+        Title="Карточка контакта" Height="640" Width="350"
+        WindowStartupLocation="CenterOwner"
+        WindowStyle="ToolWindow">
+    <Window.DataContext>
+        <viewModels:ContactViewModel x:Name="ViewModel" />
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        
+        <ScrollViewer Margin="8" Grid.Row="0">
+            <StackPanel Orientation="Vertical" Margin="0,0,8,0">
+                <TextBlock Text="Отображать:" />
+                <TextBox Text="{Binding Path=Item.DisplayName}" />
+                <TextBlock Text="Фамилия:" />
+                <TextBox Text="{Binding Path=Item.LastName}" />
+                <TextBlock Text="Имя:" />
+                <TextBox Text="{Binding Path=Item.FirstName}" />
+                <TextBlock Text="Отчество:" />
+                <TextBox Text="{Binding Path=Item.Patronymic}" />
+                <TextBlock Text="Телефоны:" />
+                <ListView ItemsSource="{Binding Path=Phones}" Height="200">
+                    <ListView.View>
+                        <GridView>
+                            <GridView.Columns>
+                                <GridViewColumn Header="Тип" Width="60" DisplayMemberBinding="{Binding Path=PhoneType.PhoneTypeName}" />
+                                <GridViewColumn Header="Телефон" Width="120" DisplayMemberBinding="{Binding Path=PhoneNumber}" />
+                            </GridView.Columns>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <TextBlock Text="Отдел:" />
+                <TextBox Text="{Binding Path=Item.Department}" />
+                <TextBlock Text="Кабинет:" />
+                <TextBox Text="{Binding Path=Item.Cabinet}" />
+                <TextBlock Text="Примечание:" />
+                <TextBox Height="66" Text="{Binding Path=Item.Comments}" />
+            </StackPanel>
+        </ScrollViewer>
+        
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="8,4">
+            <Button Style="{StaticResource OkButtonNormalStyle}" Command="{Binding Path=OkCommand}" Margin="0,0,8,0" />
+            <Button Style="{StaticResource CancelButtonNormalStyle}" Command="{Binding Path=CancelCommand}" />
+        </StackPanel>
+    </Grid>
+</Window>

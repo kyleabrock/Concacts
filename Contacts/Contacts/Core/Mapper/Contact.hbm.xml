@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Contacts"
+                   namespace="Contacts.Core.Domain">
+
+  <class name="Contact">
+    <id name="Id" column="ContactId">
+      <generator class="increment"/>
+    </id>
+    <property name="LastName" not-null="true"/>
+    <property name="FirstName" not-null="true"/>
+    <property name="Patronymic" not-null="true"/>
+    <property name="DisplayName" not-null="true"/>
+    <property name="Cabinet" not-null="true"/>
+    <property name="Position" not-null="true"/>
+    <property name="Department" not-null="true"/>
+    <bag name="Phones" inverse="true">
+      <key column="ContactId"/>
+      <one-to-many class="Phone"/>
+    </bag>
+    <property name="Comments" not-null="true"/>
+  </class>
+
+</hibernate-mapping>
